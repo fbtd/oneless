@@ -1,0 +1,11 @@
+[package]
+name = "oneless"
+version = "0.1.0"
+edition = "2024"
+
+[dev-dependencies]
+googletest = "0.14.2"
+
+[dependencies]
+anyhow = "1.0.98"
+googletest = "0.14.2"
