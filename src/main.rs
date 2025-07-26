@@ -19,7 +19,7 @@ fn main() -> Result<()> {
         Some((Width(w), Height(h))) => {
             let mut l =
                 lines::Lines::from_reader(stdin, w as usize, h as usize - EXTRA_LINES_TO_DELETE)?;
-            prioritizer::Autodetect::prioritize(&mut l)?;
+            prioritizer::auto_prioritize(&mut l)?;
             l.prune();
             l.write(stdout)?;
         }
