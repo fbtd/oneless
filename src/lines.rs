@@ -82,12 +82,17 @@ impl Lines {
     pub fn kept_lines(&self) -> usize {
         self.lines
             .iter()
-            .filter(|l| l.status == LineStatus::Kept || l.status == LineStatus::Discardable)
+            .filter(|l| {
+                l.status == LineStatus::DotDotDot
+                    || l.status == LineStatus::Kept
+                    || l.status == LineStatus::Discardable
+            })
             .count()
     }
 
     pub fn prune(&mut self) {
         while self.kept_lines() > self.target_lines {
+            //dbg!(self.kept_lines());
             // kept to discardable (one line)
             if let Some(line_to_delete) = self
                 .lines
@@ -295,7 +300,7 @@ mod tests {
             eq(&LineStatus::Kept).or(eq(&LineStatus::Discardable))
         );
 
-        lines.target_lines = 4;
+        lines.target_lines = 5;
         lines.prune();
         expect_that!(
             lines.lines[0].status,
@@ -318,11 +323,8 @@ mod tests {
 
         lines.target_lines = 1;
         lines.prune();
-        expect_that!(
-            lines.lines[0].status,
-            eq(&LineStatus::Kept).or(eq(&LineStatus::Discardable))
-        );
-        expect_that!(lines.lines[1].status, eq(&LineStatus::DotDotDot));
+        expect_that!(lines.lines[0].status, eq(&LineStatus::DotDotDot));
+        expect_that!(lines.lines[1].status, eq(&LineStatus::Discarded));
         expect_that!(lines.lines[2].status, eq(&LineStatus::Discarded));
         expect_that!(lines.lines[3].status, eq(&LineStatus::Discarded));
         expect_that!(lines.lines[4].status, eq(&LineStatus::Discarded));
@@ -364,10 +366,7 @@ mod tests {
         lines.prune();
         expect_that!(lines.lines[0].status, eq(&LineStatus::DotDotDot));
         expect_that!(lines.lines[1].status, eq(&LineStatus::Discarded));
-        expect_that!(
-            lines.lines[2].status,
-            eq(&LineStatus::Kept).or(eq(&LineStatus::Discardable))
-        );
+        expect_that!(lines.lines[2].status, eq(&LineStatus::Discarded));
         expect_that!(
             lines.lines[3].status,
             eq(&LineStatus::Kept).or(eq(&LineStatus::Discardable))
