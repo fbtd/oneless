@@ -1,0 +1,42 @@
+# oneless
+like cat, but only works on stdin, and prints just enough lines to fill the terminal
+```bash
+$ find . | oneless
+.
+./Shada.vim
+./src
+./src/prioritizer.rs
+./src/cat.rs
+./src/lines.rs
+./src/main.rs
+./tests
+./tests/numberd_lines.txt
+./tests/file_list.txt
+./Cargo.toml
+./Cargo.lock
+./.nvim.lua
+./target
+./target/.rustc_info.json
+./target/CACHEDIR.TAG
+./target/debug
+./target/debug/examples
+...
+./.git/hooks/pre-merge-commit.sample
+./.git/hooks/commit-msg.sample
+./.git/hooks/update.sample
+./.git/hooks/pre-rebase.sample
+./.git/hooks/fsmonitor-watchman.sample
+./.git/index
+./.git/logs
+./.git/logs/refs
+./.git/logs/refs/heads
+./.git/logs/refs/heads/master
+./.git/logs/refs/remotes
+./.git/logs/refs/remotes/origin
+./.git/logs/refs/remotes/origin/master
+./.git/logs/HEAD
+./.git/COMMIT_EDITMSG
+./.gitignore
+./Session.vim
+$
+```
